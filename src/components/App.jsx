@@ -6,18 +6,19 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-        month: monthData
+      month: monthData,
     };
   }
+
   render() {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-9">
+          <div className="col-12">
             <div className="row">
               {this.state.month.map((month) => {
                 return (
-                  <div className="col-6 mb-4">
+                  <div className="col-3 mb-2">
                     <Month key={month.id} month={month} />
                   </div>
                 );
