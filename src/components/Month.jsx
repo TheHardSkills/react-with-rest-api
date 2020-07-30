@@ -11,6 +11,9 @@ const Month = (props) => {
       <div className="card-body">
         <h6 className="card-title">{month.title}</h6>
       </div>
+      <div class="descr">
+        <p>Birthday users:</p>
+      </div>
     </div>
   );
 };

@@ -21,6 +21,92 @@ class ShowUsersList {
         return month;
     }
 
+    async createBirthdayUsersObject() {
+        let usersBirthdaysArray = await this.getBirthdayArray();
+        let birthdayUsersObject = {};
+
+        let januaryArr = [];
+        let februaryArr = [];
+        let marchArr = [];
+        let aprilArr = [];
+        let mayArr = [];
+        let juneArr = [];
+        let julyArr = [];
+        let augustArr = [];
+        let septemberArr = [];
+        let octoberArr = [];
+        let novemberArr = [];
+        let decemberArr = [];
+
+        usersBirthdaysArray.map(userData => {
+            //userData
+            let birthdayMonth = this.getBirthMonth(userData.dob);
+            let firstName = userData.firstName;
+            let lastName = userData.lastName;
+            let userNameAndLastname = {};
+            userNameAndLastname.firstName = firstName;
+            userNameAndLastname.lastName = lastName;
+
+            switch (birthdayMonth) {
+                case 1:
+                    januaryArr.push(userNameAndLastname);
+                    break;
+                case 2:
+                    februaryArr.push(userNameAndLastname);
+                    break;
+                case 3:
+                    marchArr.push(userNameAndLastname);
+                    break;
+                case 4:
+                    aprilArr.push(userNameAndLastname);
+                    break;
+                case 5:
+                    mayArr.push(userNameAndLastname);
+                    break;
+                case 6:
+                    juneArr.push(userNameAndLastname);
+                    break;
+                case 7:
+                    julyArr.push(userNameAndLastname);
+                    break;
+                case 8:
+                    augustArr.push(userNameAndLastname);
+                    break;
+                case 9:
+                    septemberArr.push(userNameAndLastname);
+                    break;
+                case 10:
+                    octoberArr.push(userNameAndLastname);
+                    break;
+                case 11:
+                    novemberArr.push(userNameAndLastname);
+                    break;
+                case 12:
+                    decemberArr.push(userNameAndLastname);
+                    break;
+                default:
+                    console.log(`Error in getBirthMonth() function. Value is ${birthdayMonth}`);
+            }
+        });
+
+        birthdayUsersObject.january = januaryArr;
+        birthdayUsersObject.february = februaryArr;
+        birthdayUsersObject.march = marchArr;
+        birthdayUsersObject.april = aprilArr;
+        birthdayUsersObject.may = mayArr;
+        birthdayUsersObject.june = juneArr;
+        birthdayUsersObject.july = julyArr;
+        birthdayUsersObject.august = augustArr;
+        birthdayUsersObject.september = septemberArr;
+        birthdayUsersObject.october = octoberArr;
+        birthdayUsersObject.november = novemberArr;
+        birthdayUsersObject.december = decemberArr;
+
+        console.log("birthdayUsersObject");
+        console.log(birthdayUsersObject);
+        return birthdayUsersObject;
+    }
+
     showBirthdayList() { //draft
         let container = document.getElementById("contentId");
         container.onmouseover = container.onmouseout = handler;
