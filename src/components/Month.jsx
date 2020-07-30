@@ -3,6 +3,8 @@ import "../../src/index.css";
 
 const Month = (props) => {
   const { month } = props;
+  //let monthTitle = month.title;
+  //let monthId = monthTitle.toLowerCase();
   return (
     <div className="card month" id={month.title}>
       <img className="card-img-top" src={month.src} alt={month.title} />

@@ -23,14 +23,22 @@ class App extends React.Component {
   getBorderColor = async () => {
     let usersListClass = new ShowUsersList();
     await usersListClass.countOfBirthsPerMonth();
-    let monthName = this.state.oneMonth.title;
-    let monthInLowerCase = monthName.toLowerCase();
+    let allMonthLowerCase = [];
+    this.state.month.map((oneMonth) => {
+      let monthName = oneMonth.title;
+      let monthInLowerCase = monthName.toLowerCase();
+      allMonthLowerCase.push(monthInLowerCase);
+    });
 
-    let borderColor = await usersListClass.borderSetter(monthInLowerCase);
+    let borderColorObject = await usersListClass.borderSetter(
+      allMonthLowerCase
+    );
     if (document.getElementById(this.state.oneMonth.title)) {
-      let monthElement = document.getElementById(this.state.oneMonth.title);
-      let monthElementStyle = (monthElement.style.border = `2px solid ${borderColor}`);
-      return monthElementStyle;
+      for (const [key, value] of Object.entries(borderColorObject)) {
+        console.log(`${key}: ${value}`);
+        let monthElement = document.getElementById(key);
+        monthElement.style.border = `2px solid ${value}`;
+      }
     }
   };
 

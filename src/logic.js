@@ -97,34 +97,29 @@ class ShowUsersList {
                     console.log(`Error in getBirthMonth() function. Value is ${birthdayMonth}`);
             }
         });
-
         return monthCountObject;
     }
 
-    async borderSetter(month) {
+    async borderSetter(allMonth) {
         let countOfBirthsAllMonth = await this.countOfBirthsPerMonth();
-        let countOfBirthsThisMonth = countOfBirthsAllMonth[month];
-        //let monthInLowerCase = month.toLowerCase();
-        //let countOfBirthdayInSelectedMonth = countOfBirthsThisMonth.monthInLowerCase;
+        let borderColorObject = {};
 
+        for (let [key, countOfBirthsThisMonth] of Object.entries(countOfBirthsAllMonth)) {
 
-        if (countOfBirthsThisMonth <= 2) {
-            //month.border = 2px solid grey
-            return "grey";
-
+            if (countOfBirthsThisMonth <= 2) {
+                borderColorObject[key] = "grey";
+            }
+            else if (countOfBirthsThisMonth >= 3 && countOfBirthsThisMonth <= 6) {
+                borderColorObject[key] = "blue";
+            }
+            else if (countOfBirthsThisMonth >= 7 && countOfBirthsThisMonth <= 10) {
+                borderColorObject[key] = "green";
+            }
+            else if (countOfBirthsThisMonth >= 11) {
+                borderColorObject[key] = "red";
+            }
         }
-        else if (countOfBirthsThisMonth >= 3 && countOfBirthsThisMonth <= 6) {
-            //month.border = 2px solid blue
-            return "blue";
-        }
-        else if (countOfBirthsThisMonth >= 7 && countOfBirthsThisMonth <= 10) {
-            //month.border = 2px solid green
-            return "green";
-        }
-        else if (countOfBirthsThisMonth >= 11) {
-            //month.border = 2px solid red
-            return "red";
-        }
+        return borderColorObject;
     }
 }
 
