@@ -1,4 +1,3 @@
-
 class ShowUsersList {
     async getUserList() {
         let response = await fetch('https://yalantis-react-school-api.yalantis.com/api/task0/users');
@@ -130,15 +129,3 @@ class ShowUsersList {
 }
 
 export default ShowUsersList;
-// const fff = async () => {
-//     let experementWithShowUsersList = new ShowUsersList();
-//     await experementWithShowUsersList.countOfBirthsPerMonth();
-//     let res = await experementWithShowUsersList.borderSetter("august");
-//     console.log("res");
-//     console.log(res);
-
-//     //shareButtonsContainer - el by id
-//     //shareButtonsContainer.style.display = 'block';
-// }
-
-// fff();
