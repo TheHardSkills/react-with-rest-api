@@ -8,11 +8,6 @@ class App extends React.Component {
     super();
     this.state = {
       month: monthData,
-      oneMonth: {
-        id: 1,
-        title: "root",
-        src: "https://c.tadst.com/gfx/750w/the-month-january.jpg?1",
-      },
     };
   }
 
@@ -33,9 +28,9 @@ class App extends React.Component {
     let borderColorObject = await usersListClass.borderSetter(
       allMonthLowerCase
     );
-    if (document.getElementById(this.state.oneMonth.title)) {
+
+    if (document.getElementById("december")) {
       for (const [key, value] of Object.entries(borderColorObject)) {
-        console.log(`${key}: ${value}`);
         let monthElement = document.getElementById(key);
         monthElement.style.border = `2px solid ${value}`;
       }
@@ -49,8 +44,6 @@ class App extends React.Component {
           <div className="col-12">
             <div className="row">
               {this.state.month.map((month) => {
-                //-this.setState({ oneMonth: month });
-                this.state.oneMonth = month;
                 return (
                   <div className="col-3 mb-2">
                     <Month key={month.id} month={month} />
