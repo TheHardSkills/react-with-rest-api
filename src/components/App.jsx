@@ -15,9 +15,11 @@ class App extends React.Component {
 
   async componentDidMount() {
     this.getBorderColor();
-    this.state.birthdayObject = await this.showBirthdayByHoveringOverMonth(); //todo: correct use
-    this.setState(async (state) => {
-      return (state.birthdayObject = await this.showBirthdayByHoveringOverMonth());
+    let birthdayObject = await this.showBirthdayByHoveringOverMonth();
+    this.setState((state) => {
+      console.log(state);
+      state.birthdayObject = birthdayObject;
+      return state;
     });
   }
 
