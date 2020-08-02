@@ -39,7 +39,6 @@ class ShowUsersList {
         let decemberArr = [];
 
         usersBirthdaysArray.map(userData => {
-            //userData
             let birthdayMonth = this.getBirthMonth(userData.dob);
             let firstName = userData.firstName;
             let lastName = userData.lastName;
@@ -102,23 +101,7 @@ class ShowUsersList {
         birthdayUsersObject.november = novemberArr;
         birthdayUsersObject.december = decemberArr;
 
-        console.log("birthdayUsersObject");
-        console.log(birthdayUsersObject);
         return birthdayUsersObject;
-    }
-
-    showBirthdayList() { //draft
-        let container = document.getElementById("contentId");
-        container.onmouseover = container.onmouseout = handler;
-
-        function handler(event) {
-            if (event.type === 'mouseover') {
-                event.target.style.background = 'pink'
-            }
-            if (event.type === 'mouseout') {
-                event.target.style.background = ''
-            }
-        }
     }
 
     async countOfBirthsPerMonth() {

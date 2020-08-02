@@ -8,11 +8,17 @@ class App extends React.Component {
     super();
     this.state = {
       month: monthData,
+      usersData: "",
+      birthdayObject: null,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getBorderColor();
+    this.state.birthdayObject = await this.showBirthdayByHoveringOverMonth(); //todo: correct use
+    this.setState(async (state) => {
+      return (state.birthdayObject = await this.showBirthdayByHoveringOverMonth());
+    });
   }
 
   getBorderColor = async () => {
@@ -37,27 +43,45 @@ class App extends React.Component {
     }
   };
 
-  async showBirthdayByHoveringOverMonth(month) {
-    let monthInLowerCase = month.toLowerCase();
-    let usersListClass = new ShowUsersList(); //todo: move to constructor
+  async showBirthdayByHoveringOverMonth() {
+    let usersListClass = new ShowUsersList();
     let birthdayUsersObject = await usersListClass.createBirthdayUsersObject();
-    let birthdayUsersThisMonth = birthdayUsersObject[monthInLowerCase];
-    return birthdayUsersThisMonth;
+    return birthdayUsersObject;
   }
-
   render() {
     return (
       <div className="container">
         <div className="row">
           <div className="col-12">
             <div className="row">
-              {this.state.month.map((month) => {
-                return (
-                  <div className="col-3 mb-2">
-                    <Month key={month.id} month={month} />
-                  </div>
-                );
-              })}
+              {this.state.birthdayObject &&
+                this.state.month.map((month) => {
+                  let title = month.title;
+                  let titletoLowerCase = title.toLowerCase();
+                  return (
+                    <div className="col-3 mb-2">
+                      <Month
+                        key={month.id}
+                        month={month}
+                        title={titletoLowerCase}
+                        usersData={this.state.birthdayObject[titletoLowerCase]}
+                      />
+                    </div>
+                  );
+                })}
+
+              {!this.state.birthdayObject &&
+                this.state.month.map((month) => {
+                  return (
+                    <div className="col-3 mb-2">
+                      <Month
+                        key={month.id}
+                        month={month}
+                        usersData={"Wait.."}
+                      />
+                    </div>
+                  );
+                })}
             </div>
           </div>
           <div className="col-3"></div>
