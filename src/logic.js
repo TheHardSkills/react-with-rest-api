@@ -1,7 +1,7 @@
 class ShowUsersList {
     async getUserList() {
-        let response = await fetch('https://yalantis-react-school-api.yalantis.com/api/task0/users');
-        let json = await response.json();
+        const response = await fetch('https://yalantis-react-school-api.yalantis.com/api/task0/users');
+        const json = await response.json();
         return json;
     }
 
@@ -22,15 +22,15 @@ class ShowUsersList {
     }
 
     async createBirthdayUsersObject() {
-        let usersBirthdaysArray = await this.getBirthdayArray();
+        const usersBirthdaysArray = await this.getBirthdayArray();
         let birthdayUsersObject = {};
 
         let monthArray = [];
         usersBirthdaysArray.map(userData => {
-            let birthdayMonth = this.getBirthMonth(userData.dob);
-            let firstName = userData.firstName;
-            let lastName = userData.lastName;
-            let userNameAndLastname = {};
+            const birthdayMonth = this.getBirthMonth(userData.dob);
+            const firstName = userData.firstName;
+            const lastName = userData.lastName;
+            const userNameAndLastname = {};
             userNameAndLastname.firstName = firstName;
             userNameAndLastname.lastName = lastName;
 
@@ -62,7 +62,7 @@ class ShowUsersList {
 
         birthdaysArray.map(birthdayOfOneUser => {
 
-            let birthdayMonth = this.getBirthMonth(birthdayOfOneUser.dob);
+            const birthdayMonth = this.getBirthMonth(birthdayOfOneUser.dob);
 
             if (monthObject[birthdayMonth] === undefined) {
                 monthObject[birthdayMonth] = 0;
@@ -86,10 +86,10 @@ class ShowUsersList {
     }
 
     async borderSetter() {
-        let countOfBirthsAllMonth = await this.countOfBirthsPerMonth();
+        const countOfBirthsAllMonth = await this.countOfBirthsPerMonth();
         let borderColorObject = {};
 
-        for (let [key, countOfBirthsThisMonth] of Object.entries(countOfBirthsAllMonth)) {
+        for (const [key, countOfBirthsThisMonth] of Object.entries(countOfBirthsAllMonth)) {
 
             if (countOfBirthsThisMonth <= 2) {
                 borderColorObject[key] = "grey";

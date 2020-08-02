@@ -3,7 +3,7 @@ import "../../src/index.css";
 
 const Month = (props) => {
   const { month, usersData } = props;
-  let monthId = month.title;
+  const monthId = month.title;
 
   let listItems = 0;
   if (usersData !== "Wait..") {

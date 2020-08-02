@@ -15,7 +15,7 @@ class App extends React.Component {
 
   async componentDidMount() {
     this.getBorderColor();
-    let birthdayObject = await this.showBirthdayByHoveringOverMonth();
+    const birthdayObject = await this.showBirthdayByHoveringOverMonth();
     this.setState((state) => {
       state.birthdayObject = birthdayObject;
       return state;
@@ -23,27 +23,29 @@ class App extends React.Component {
   }
 
   getBorderColor = async () => {
-    let usersListClass = new ShowUsersList();
+    const usersListClass = new ShowUsersList();
     await usersListClass.countOfBirthsPerMonth();
     let allMonthLowerCase = [];
     this.state.month.map((oneMonth) => {
-      let monthName = oneMonth.title;
+      const monthName = oneMonth.title;
       allMonthLowerCase.push(monthName);
     });
 
-    let borderColorObject = await usersListClass.borderSetter(allMonthLowerCase);
+    const borderColorObject = await usersListClass.borderSetter(
+      allMonthLowerCase
+    );
 
     if (document.getElementById("december")) {
       for (const [key, value] of Object.entries(borderColorObject)) {
-        let monthElement = document.getElementById(key);
+        const monthElement = document.getElementById(key);
         monthElement.style.border = `3px solid ${value}`;
       }
     }
   };
 
   async showBirthdayByHoveringOverMonth() {
-    let usersListClass = new ShowUsersList();
-    let birthdayUsersObject = await usersListClass.createBirthdayUsersObject();
+    const usersListClass = new ShowUsersList();
+    const birthdayUsersObject = await usersListClass.createBirthdayUsersObject();
     return birthdayUsersObject;
   }
 
@@ -55,7 +57,7 @@ class App extends React.Component {
             <div className="row">
               {this.state.birthdayObject &&
                 this.state.month.map((month) => {
-                  let title = month.title;
+                  const title = month.title;
                   return (
                     <div className="col-3 mb-2">
                       <Month
