@@ -11,13 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
 .descr {
   display: none;
   padding: 10px;
   margin-top: 5px;
   margin-left: auto;
   background: #f3f3f3;
+}
+.month {
+  padding: 1%;
 }
 .month:hover .descr {
   display: block;
@@ -26,8 +28,4 @@ code {
   z-index: 1;
   border: 1px solid green;
   opacity: 0.9;
-}
-.card-img-top {
-  margin: 1%;
-  padding-right: 2%;
 }
