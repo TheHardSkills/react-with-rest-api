@@ -17,25 +17,21 @@ class App extends React.Component {
     this.getBorderColor();
     let birthdayObject = await this.showBirthdayByHoveringOverMonth();
     this.setState((state) => {
-      console.log(state);
       state.birthdayObject = birthdayObject;
       return state;
     });
   }
 
   getBorderColor = async () => {
-    let usersListClass = new ShowUsersList(); //todo: move to constructor
+    let usersListClass = new ShowUsersList();
     await usersListClass.countOfBirthsPerMonth();
     let allMonthLowerCase = [];
     this.state.month.map((oneMonth) => {
       let monthName = oneMonth.title;
-      let monthInLowerCase = monthName.toLowerCase();
-      allMonthLowerCase.push(monthInLowerCase);
+      allMonthLowerCase.push(monthName);
     });
 
-    let borderColorObject = await usersListClass.borderSetter(
-      allMonthLowerCase
-    );
+    let borderColorObject = await usersListClass.borderSetter(allMonthLowerCase);
 
     if (document.getElementById("december")) {
       for (const [key, value] of Object.entries(borderColorObject)) {
@@ -50,6 +46,7 @@ class App extends React.Component {
     let birthdayUsersObject = await usersListClass.createBirthdayUsersObject();
     return birthdayUsersObject;
   }
+
   render() {
     return (
       <div className="container">
@@ -59,14 +56,12 @@ class App extends React.Component {
               {this.state.birthdayObject &&
                 this.state.month.map((month) => {
                   let title = month.title;
-                  let titletoLowerCase = title.toLowerCase();
                   return (
                     <div className="col-3 mb-2">
                       <Month
                         key={month.id}
                         month={month}
-                        title={titletoLowerCase}
-                        usersData={this.state.birthdayObject[titletoLowerCase]}
+                        usersData={this.state.birthdayObject[title]}
                       />
                     </div>
                   );
