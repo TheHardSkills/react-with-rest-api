@@ -38,7 +38,7 @@ class App extends React.Component {
     if (document.getElementById("december")) {
       for (const [key, value] of Object.entries(borderColorObject)) {
         let monthElement = document.getElementById(key);
-        monthElement.style.border = `2px solid ${value}`;
+        monthElement.style.border = `3px solid ${value}`;
       }
     }
   };
