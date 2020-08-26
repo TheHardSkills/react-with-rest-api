@@ -1,12 +1,10 @@
+import YalantisDataAPI from "./components/YalantisDataAPI";
+
 class ShowUsersList {
-    async getUserList() {
-        const response = await fetch('https://yalantis-react-school-api.yalantis.com/api/task0/users');
-        const json = await response.json();
-        return json;
-    }
 
     async getBirthdayArray() {
-        const usersData = await this.getUserList();
+        const yalantisData = new YalantisDataAPI();
+        const usersData = await yalantisData.getUsersList();
         let usersBirthdaysArray = [];
         usersData.map(dataOfOneUser => {
             usersBirthdaysArray.push(dataOfOneUser);
