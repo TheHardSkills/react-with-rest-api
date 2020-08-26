@@ -1,7 +1,7 @@
 import React from "react";
 import { monthData } from "../monthData";
 import Month from "./Month";
-import ShowUsersList from "../logic";
+import YalantisDataServis from "./YalantisDataServis";
 
 class App extends React.Component {
   constructor() {
@@ -9,44 +9,71 @@ class App extends React.Component {
     this.state = {
       month: monthData,
       usersData: "",
-      birthdayObject: null,
+      fullUsersData: null,
     };
   }
 
   async componentDidMount() {
     this.getBorderColor();
-    const birthdayObject = await this.showBirthdayByHoveringOverMonth();
-    this.setState((state) => {
-      state.birthdayObject = birthdayObject;
-      return state;
+
+    this.getObjSortByBirthdayMonth().then((res) => {
+      this.setState((state) => {
+        state.fullUsersData = res;
+        return state;
+      });
     });
   }
 
   getBorderColor = async () => {
-    const usersListClass = new ShowUsersList();
-    await usersListClass.countOfBirthsPerMonth();
+    const monthNameArray = [
+      "january",
+      "february",
+      "march",
+      "april",
+      "may",
+      "june",
+      "july",
+      "august",
+      "september",
+      "october",
+      "november",
+      "december",
+    ];
+
+    const yalantisDataServis = new YalantisDataServis();
+    let wtf = await yalantisDataServis.countOfBirthsPerMonth(); //wtf
+    console.log(wtf);
     let allMonthLowerCase = [];
     this.state.month.map((oneMonth) => {
-      const monthName = oneMonth.title;
+      let monthName = oneMonth.title;
       allMonthLowerCase.push(monthName);
     });
 
-    const borderColorObject = await usersListClass.borderSetter(
+    const borderColorArray = await yalantisDataServis.borderSetter(
       allMonthLowerCase
     );
 
     if (document.getElementById("december")) {
-      for (const [key, value] of Object.entries(borderColorObject)) {
-        const monthElement = document.getElementById(key);
-        monthElement.style.border = `3px solid ${value}`;
-      }
+      let iterNumber = 0;
+      borderColorArray.map((colorForOneMonth) => {
+        let monthName = monthNameArray[iterNumber];
+        const monthElement = document.getElementById(monthName);
+        monthElement.style.border = `3px solid ${colorForOneMonth}`;
+        iterNumber++;
+      });
     }
   };
 
-  async showBirthdayByHoveringOverMonth() {
-    const usersListClass = new ShowUsersList();
-    const birthdayUsersObject = await usersListClass.createBirthdayUsersObject();
-    return birthdayUsersObject;
+  async getFullUsersData() {
+    const yalantisDataServis = new YalantisDataServis();
+    const usersDataWithMonthName = await yalantisDataServis.getUsersDataWithMonthName();
+    return usersDataWithMonthName;
+  }
+
+  async getObjSortByBirthdayMonth() {
+    const yalantisDataServis = new YalantisDataServis();
+    const objSortByBirthdayMonth = await yalantisDataServis.getMonthObjectWithUsersData();
+    return objSortByBirthdayMonth;
   }
 
   render() {
@@ -55,7 +82,7 @@ class App extends React.Component {
         <div className="row">
           <div className="col-12">
             <div className="row">
-              {this.state.birthdayObject &&
+              {this.state.fullUsersData &&
                 this.state.month.map((month) => {
                   const title = month.title;
                   return (
@@ -63,13 +90,13 @@ class App extends React.Component {
                       <Month
                         key={month.id}
                         month={month}
-                        usersData={this.state.birthdayObject[title]}
+                        usersData={this.state.fullUsersData[month.title]}
                       />
                     </div>
                   );
                 })}
 
-              {!this.state.birthdayObject &&
+              {!this.state.fullUsersData &&
                 this.state.month.map((month) => {
                   return (
                     <div className="col-3 mb-2">
