@@ -5,7 +5,7 @@ class YalantisDataServis {
         this.monthArray = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
     }
 
-    async getUsersListFromAPI() { //тесная связь? getUsersListFromAPI
+    async getUsersListFromAPI() { //тесная связь? 
         const yalantisData = new YalantisDataAPI();
         const usersData = await yalantisData.getUsersList();
         return usersData;
@@ -46,23 +46,33 @@ class YalantisDataServis {
         return objectSortByMonth;
     }
 
-    async countOfBirthsPerMonth() {
-        const birthdaysArray = await this.getUsersDataWithMonthName();
-        let monthArray = [];
-        birthdaysArray.map(birthdayOfOneUser => {
-            const birthdayData = this.defineTheNameAndNubmerOfTheMonth(birthdayOfOneUser.dob);
-            const birthdayMonth = birthdayData.monthNamber;
-            if (monthArray[birthdayMonth] === undefined) {
-                monthArray[birthdayMonth] = 0;
-            }
-            monthArray[birthdayMonth]++;
-        });
-        return monthArray;
-    }
+    // async countOfBirthsPerMonth() {
+    //     const birthdaysArray = await this.getUsersDataWithMonthName();
+    //     let monthArray = [];
+    //     birthdaysArray.map(birthdayOfOneUser => {
+    //         const birthdayData = this.defineTheNameAndNubmerOfTheMonth(birthdayOfOneUser.dob);
+    //         const birthdayMonth = birthdayData.monthNamber;
+    //         if (monthArray[birthdayMonth] === undefined) {
+    //             monthArray[birthdayMonth] = 0;
+    //         }
+    //         monthArray[birthdayMonth]++;
+    //     });
+    //     return monthArray;
+    // }
 
     async borderSetter() {
-        const countOfBirthsAllMonth = await this.countOfBirthsPerMonth();
+        const allUsersData = await this.getUsersDataWithMonthName();
+        let countBirthdayForMonthArray = [];
+        this.monthArray.forEach((month) => {
+            let oneMonth = 0;
+            allUsersData.forEach((oneUserData) => {
+                if (month === oneUserData.monthName) { oneMonth++; }
+            })
+            countBirthdayForMonthArray.push(oneMonth);
+        })
 
+        //const countOfBirthsAllMonth = await this.countOfBirthsPerMonth();
+        const countOfBirthsAllMonth = countBirthdayForMonthArray;
         let arrayWithValuesForTheColorOfTheMonth = [];
         countOfBirthsAllMonth.map(oneMonth => {
             if (oneMonth <= 2) {

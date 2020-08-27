@@ -14,7 +14,7 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    this.getBorderColor();
+    // this.getBorderColor();
 
     this.getObjSortByBirthdayMonth().then((res) => {
       this.setState((state) => {
@@ -22,6 +22,8 @@ class App extends React.Component {
         return state;
       });
     });
+
+    this.getBorderColor();
   }
 
   getBorderColor = async () => {
@@ -41,25 +43,15 @@ class App extends React.Component {
     ];
 
     const yalantisDataServis = new YalantisDataServis();
-    let wtf = await yalantisDataServis.countOfBirthsPerMonth(); //wtf
-    console.log(wtf);
-    let allMonthLowerCase = [];
-    this.state.month.map((oneMonth) => {
-      let monthName = oneMonth.title;
-      allMonthLowerCase.push(monthName);
-    });
+    // let wtf = await yalantisDataServis.countOfBirthsPerMonth(); //wtf
+    // console.log(wtf);
 
-    const borderColorArray = await yalantisDataServis.borderSetter(
-      allMonthLowerCase
-    );
+    const borderColorArray = await yalantisDataServis.borderSetter();
 
     if (document.getElementById("december")) {
-      let iterNumber = 0;
-      borderColorArray.map((colorForOneMonth) => {
-        let monthName = monthNameArray[iterNumber];
-        const monthElement = document.getElementById(monthName);
-        monthElement.style.border = `3px solid ${colorForOneMonth}`;
-        iterNumber++;
+      monthNameArray.forEach((oneMonthName, i) => {
+        const monthElement = document.getElementById(oneMonthName);
+        monthElement.style.border = `3px solid ${borderColorArray[i]}`;
       });
     }
   };
