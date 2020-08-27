@@ -99,11 +99,7 @@ class App extends React.Component {
                 this.state.month.map((month) => {
                   return (
                     <div className="col-3 mb-2">
-                      <Month
-                        key={month.id}
-                        month={month}
-                        usersData={"Wait.."}
-                      />
+                      <Month key={month.id} month={month} usersData={null} />
                     </div>
                   );
                 })}

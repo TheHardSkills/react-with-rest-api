@@ -11,10 +11,12 @@ class Month extends React.Component {
 
     this.monthId = month.title;
     let listItems = 0;
-    if (usersData !== "Wait..") {
+    if (usersData !== null) {
       listItems = usersData.map((oneUserDate) => {
         return <li>{`${oneUserDate.firstName} ${oneUserDate.lastName}`}</li>;
       });
+    } else {
+      listItems = <li>Wait..</li>;
     }
 
     return (
