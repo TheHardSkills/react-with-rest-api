@@ -16,9 +16,9 @@ class Month extends React.Component {
         <div class="birthdayList">
           {usersData !== null && (
             <ul>
-              {usersData.map((oneUserDate) => {
+              {usersData.map((oneUserData) => {
                 return (
-                  <li>{`${oneUserDate.firstName} ${oneUserDate.lastName}`}</li>
+                  <li>{`${oneUserData.firstName} ${oneUserData.lastName}`}</li>
                 );
               })}
             </ul>

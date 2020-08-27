@@ -1,7 +1,7 @@
 import React from "react";
 import { monthData } from "../monthData";
 import Month from "./Month";
-import YalantisDataServis from "./YalantisDataServis";
+import YalantisDataServise from "./YalantisDataServis";
 
 class App extends React.Component {
   constructor() {
@@ -64,13 +64,13 @@ class App extends React.Component {
   };
 
   async getFullUsersData() {
-    const yalantisDataServis = new YalantisDataServis();
+    const yalantisDataServis = new YalantisDataServise();
     const usersDataWithMonthName = await yalantisDataServis.getUsersDataWithMonthName();
     return usersDataWithMonthName;
   }
 
   async getObjSortByBirthdayMonth() {
-    const yalantisDataServis = new YalantisDataServis();
+    const yalantisDataServis = new YalantisDataServise();
     const objSortByBirthdayMonth = await yalantisDataServis.getMonthObjectWithUsersData();
     return objSortByBirthdayMonth;
   }

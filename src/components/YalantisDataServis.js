@@ -1,6 +1,6 @@
 import YalantisDataAPI from "../components/YalantisDataAPI";
 
-class YalantisDataServis {
+class YalantisDataServise {
     constructor() {
         this.monthArray = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
         this.yalantisData = new YalantisDataAPI();
@@ -9,9 +9,9 @@ class YalantisDataServis {
     defineAndGetTheNameAndNubmerOfTheMonth(dob) {
         const date = new Date(dob);
         const monthPart = date.getUTCMonth();
-        const monthNamber = monthPart;
-        const monthName = this.monthArray[monthNamber];
-        return { "monthName": monthName, "monthNamber": monthNamber };
+        const monthNumber = monthPart;
+        const monthName = this.monthArray[monthNumber];
+        return { "monthName": monthName, "monthNumber": monthNumber };
     }
 
     async getUsersDataWithMonthName() {
@@ -42,4 +42,4 @@ class YalantisDataServis {
     }
 }
 
-export default YalantisDataServis;
+export default YalantisDataServise;
