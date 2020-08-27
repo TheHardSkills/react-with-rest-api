@@ -63,12 +63,6 @@ class App extends React.Component {
     }
   };
 
-  async getFullUsersData() {
-    const yalantisDataServis = new YalantisDataServise();
-    const usersDataWithMonthName = await yalantisDataServis.getUsersDataWithMonthName();
-    return usersDataWithMonthName;
-  }
-
   async getObjSortByBirthdayMonth() {
     const yalantisDataServis = new YalantisDataServise();
     const objSortByBirthdayMonth = await yalantisDataServis.getMonthObjectWithUsersData();
@@ -83,7 +77,6 @@ class App extends React.Component {
             <div className="row">
               {this.state.fullUsersData &&
                 this.state.month.map((month) => {
-                  const title = month.title;
                   return (
                     <div className="col-3 mb-2">
                       <Month

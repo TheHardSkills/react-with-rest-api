@@ -3,7 +3,7 @@ import YalantisDataAPI from "../components/YalantisDataAPI";
 class YalantisDataServise {
     constructor() {
         this.monthArray = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-        this.yalantisData = new YalantisDataAPI();
+        this.yalantisDataAPI = new YalantisDataAPI();
     }
 
     defineAndGetTheNameAndNubmerOfTheMonth(dob) {
@@ -15,7 +15,7 @@ class YalantisDataServise {
     }
 
     async getUsersDataWithMonthName() {
-        let usersDataArray = await this.yalantisData.getUsersList();
+        let usersDataArray = await this.yalantisDataAPI.getUsersList();
         let fullDataArray = usersDataArray.map((oneUserData) => {
             let monthData = this.defineAndGetTheNameAndNubmerOfTheMonth(oneUserData.dob);
             let monthName = monthData.monthName;
@@ -28,14 +28,8 @@ class YalantisDataServise {
     async getMonthObjectWithUsersData() {
         let usersData = await this.getUsersDataWithMonthName();
         let objectSortByMonth = {};
-        this.monthArray.map(month => {
-            let monthName = month;
-            let dataArr = [];
-            usersData.map(oneUserData => {
-                if (oneUserData.monthName === month) {
-                    dataArr.push(oneUserData);
-                }
-            })
+        this.monthArray.map(monthName => {
+            let dataArr = usersData.filter(oneUserData => oneUserData.monthName === monthName);
             objectSortByMonth[monthName] = dataArr;
         })
         return objectSortByMonth;
