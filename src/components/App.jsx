@@ -39,9 +39,22 @@ class App extends React.Component {
       "december",
     ];
 
-    const yalantisDataServis = new YalantisDataServis();
-    const borderColorArray = await yalantisDataServis.borderSetter();
+    let finalUsersObject = await this.getObjSortByBirthdayMonth();
+    let borderColorArray = [];
+    for (let key in finalUsersObject) {
+      let userInMonth = finalUsersObject[key];
+      let countUserInMonth = userInMonth.length;
 
+      if (countUserInMonth <= 2) {
+        borderColorArray.push("grey");
+      } else if (countUserInMonth >= 3 && countUserInMonth <= 6) {
+        borderColorArray.push("blue");
+      } else if (countUserInMonth >= 7 && countUserInMonth <= 10) {
+        borderColorArray.push("green");
+      } else if (countUserInMonth >= 11) {
+        borderColorArray.push("red");
+      }
+    }
     if (document.getElementById("december")) {
       monthNameArray.forEach((oneMonthName, i) => {
         const monthElement = document.getElementById(oneMonthName);

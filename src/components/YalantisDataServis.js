@@ -3,12 +3,7 @@ import YalantisDataAPI from "../components/YalantisDataAPI";
 class YalantisDataServis {
     constructor() {
         this.monthArray = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-    }
-
-    async getUsersListFromAPI() { 
-        const yalantisData = new YalantisDataAPI();
-        const usersData = await yalantisData.getUsersList();
-        return usersData;
+        this.yalantisData = new YalantisDataAPI();
     }
 
     defineAndGetTheNameAndNubmerOfTheMonth(dob) {
@@ -20,7 +15,7 @@ class YalantisDataServis {
     }
 
     async getUsersDataWithMonthName() {
-        let usersDataArray = await this.getUsersListFromAPI();
+        let usersDataArray = await this.yalantisData.getUsersList();
         let fullDataArray = usersDataArray.map((oneUserData) => {
             let monthData = this.defineAndGetTheNameAndNubmerOfTheMonth(oneUserData.dob);
             let monthName = monthData.monthName;
@@ -44,35 +39,6 @@ class YalantisDataServis {
             objectSortByMonth[monthName] = dataArr;
         })
         return objectSortByMonth;
-    }
-
-    async borderSetter() {
-        const allUsersData = await this.getUsersDataWithMonthName();
-        let countBirthdayForMonthArray = [];
-        this.monthArray.forEach((month) => {
-            let oneMonth = 0;
-            allUsersData.forEach((oneUserData) => {
-                if (month === oneUserData.monthName) { oneMonth++; }
-            })
-            countBirthdayForMonthArray.push(oneMonth);
-        });
-        const countOfBirthsAllMonth = countBirthdayForMonthArray;
-        let arrayWithValuesForTheColorOfTheMonth = [];
-        countOfBirthsAllMonth.map(oneMonth => {
-            if (oneMonth <= 2) {
-                arrayWithValuesForTheColorOfTheMonth.push("grey");
-            }
-            else if (oneMonth >= 3 && oneMonth <= 6) {
-                arrayWithValuesForTheColorOfTheMonth.push("blue");
-            }
-            else if (oneMonth >= 7 && oneMonth <= 10) {
-                arrayWithValuesForTheColorOfTheMonth.push("green");
-            }
-            else if (oneMonth >= 11) {
-                arrayWithValuesForTheColorOfTheMonth.push("red");
-            }
-        });
-        return arrayWithValuesForTheColorOfTheMonth;
     }
 }
 
