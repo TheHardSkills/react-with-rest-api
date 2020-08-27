@@ -8,22 +8,20 @@ class App extends React.Component {
     super();
     this.state = {
       month: monthData,
-      usersData: "",
       fullUsersData: null,
     };
   }
 
   async componentDidMount() {
-    this.getObjSortByBirthdayMonth().then((res) => {
-      this.setState((state) => {
-        state.fullUsersData = res;
-        return state;
-      });
+    let sortDataInObject = await this.getObjSortByBirthdayMonth();
+    this.setState((state) => {
+      state.fullUsersData = sortDataInObject;
+      return state;
     });
-    this.setBorderColors();
+    this.setBorderColors(sortDataInObject);
   }
 
-  setBorderColors = async () => {
+  setBorderColors = async (finalUsersObject) => {
     const monthNameArray = [
       "january",
       "february",
@@ -39,23 +37,28 @@ class App extends React.Component {
       "december",
     ];
 
-    let finalUsersObject = await this.getObjSortByBirthdayMonth();
+    finalUsersObject = await this.getObjSortByBirthdayMonth();
     let borderColorArray = [];
     for (let key in finalUsersObject) {
       let userInMonth = finalUsersObject[key];
       let countUserInMonth = userInMonth.length;
 
-      if (countUserInMonth <= 2) {
-        borderColorArray.push("grey");
-      } else if (countUserInMonth >= 3 && countUserInMonth <= 6) {
-        borderColorArray.push("blue");
-      } else if (countUserInMonth >= 7 && countUserInMonth <= 10) {
-        borderColorArray.push("green");
-      } else if (countUserInMonth >= 11) {
-        borderColorArray.push("red");
+      switch (true) {
+        case countUserInMonth <= 2:
+          borderColorArray.push("grey");
+          break;
+        case countUserInMonth >= 3 && countUserInMonth <= 6:
+          borderColorArray.push("blue");
+          break;
+        case countUserInMonth >= 7 && countUserInMonth <= 10:
+          borderColorArray.push("green");
+          break;
+        case countUserInMonth >= 11:
+          borderColorArray.push("red");
+          break;
       }
     }
-    if (document.getElementById("december")) {
+    if (this.state.fullUsersData !== null) {
       monthNameArray.forEach((oneMonthName, i) => {
         const monthElement = document.getElementById(oneMonthName);
         monthElement.style.border = `3px solid ${borderColorArray[i]}`;

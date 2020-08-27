@@ -1,4 +1,4 @@
-class YalantisDataAPI {
+class UsersDataAPI {
     async getUsersList() {
         const response = await fetch('https://yalantis-react-school-api.yalantis.com/api/task0/users');
         const json = await response.json();
@@ -6,4 +6,4 @@ class YalantisDataAPI {
     }
 }
 
-export default YalantisDataAPI;
+export default UsersDataAPI;

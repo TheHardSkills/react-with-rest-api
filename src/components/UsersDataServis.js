@@ -1,9 +1,9 @@
-import YalantisDataAPI from "../components/YalantisDataAPI";
+import UsersDataAPI from "./UsersDataAPI";
 
-class YalantisDataServise {
+class UsersDataServise {
     constructor() {
         this.monthArray = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-        this.yalantisDataAPI = new YalantisDataAPI();
+        this.usersDataAPI = new UsersDataAPI();
     }
 
     defineAndGetTheNameAndNubmerOfTheMonth(dob) {
@@ -15,7 +15,7 @@ class YalantisDataServise {
     }
 
     async getUsersDataWithMonthName() {
-        let usersDataArray = await this.yalantisDataAPI.getUsersList();
+        let usersDataArray = await this.usersDataAPI.getUsersList();
         let fullDataArray = usersDataArray.map((oneUserData) => {
             let monthData = this.defineAndGetTheNameAndNubmerOfTheMonth(oneUserData.dob);
             let monthName = monthData.monthName;
@@ -36,4 +36,4 @@ class YalantisDataServise {
     }
 }
 
-export default YalantisDataServise;
+export default UsersDataServise;

@@ -8,10 +8,8 @@ class Month extends React.Component {
 
   render() {
     const { month, usersData } = this.props;
-    this.monthId = month.title;
-
     return (
-      <div className="card month" id={this.monthId}>
+      <div className="card month" id={month.title}>
         <img className="card-img-top" src={month.src} alt={month.title} />
         <div class="birthdayList">
           {usersData !== null && (
