@@ -14,19 +14,16 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    // this.getBorderColor();
-
     this.getObjSortByBirthdayMonth().then((res) => {
       this.setState((state) => {
         state.fullUsersData = res;
         return state;
       });
     });
-
-    this.getBorderColor();
+    this.setBorderColors();
   }
 
-  getBorderColor = async () => {
+  setBorderColors = async () => {
     const monthNameArray = [
       "january",
       "february",
@@ -43,9 +40,6 @@ class App extends React.Component {
     ];
 
     const yalantisDataServis = new YalantisDataServis();
-    // let wtf = await yalantisDataServis.countOfBirthsPerMonth(); //wtf
-    // console.log(wtf);
-
     const borderColorArray = await yalantisDataServis.borderSetter();
 
     if (document.getElementById("december")) {

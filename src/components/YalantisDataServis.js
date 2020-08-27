@@ -5,13 +5,13 @@ class YalantisDataServis {
         this.monthArray = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
     }
 
-    async getUsersListFromAPI() { //тесная связь? 
+    async getUsersListFromAPI() { 
         const yalantisData = new YalantisDataAPI();
         const usersData = await yalantisData.getUsersList();
         return usersData;
     }
 
-    defineTheNameAndNubmerOfTheMonth(dob) {
+    defineAndGetTheNameAndNubmerOfTheMonth(dob) {
         const date = new Date(dob);
         const monthPart = date.getUTCMonth();
         const monthNamber = monthPart;
@@ -22,7 +22,7 @@ class YalantisDataServis {
     async getUsersDataWithMonthName() {
         let usersDataArray = await this.getUsersListFromAPI();
         let fullDataArray = usersDataArray.map((oneUserData) => {
-            let monthData = this.defineTheNameAndNubmerOfTheMonth(oneUserData.dob);
+            let monthData = this.defineAndGetTheNameAndNubmerOfTheMonth(oneUserData.dob);
             let monthName = monthData.monthName;
             oneUserData.monthName = monthName;
             return oneUserData;
@@ -46,20 +46,6 @@ class YalantisDataServis {
         return objectSortByMonth;
     }
 
-    // async countOfBirthsPerMonth() {
-    //     const birthdaysArray = await this.getUsersDataWithMonthName();
-    //     let monthArray = [];
-    //     birthdaysArray.map(birthdayOfOneUser => {
-    //         const birthdayData = this.defineTheNameAndNubmerOfTheMonth(birthdayOfOneUser.dob);
-    //         const birthdayMonth = birthdayData.monthNamber;
-    //         if (monthArray[birthdayMonth] === undefined) {
-    //             monthArray[birthdayMonth] = 0;
-    //         }
-    //         monthArray[birthdayMonth]++;
-    //     });
-    //     return monthArray;
-    // }
-
     async borderSetter() {
         const allUsersData = await this.getUsersDataWithMonthName();
         let countBirthdayForMonthArray = [];
@@ -69,9 +55,7 @@ class YalantisDataServis {
                 if (month === oneUserData.monthName) { oneMonth++; }
             })
             countBirthdayForMonthArray.push(oneMonth);
-        })
-
-        //const countOfBirthsAllMonth = await this.countOfBirthsPerMonth();
+        });
         const countOfBirthsAllMonth = countBirthdayForMonthArray;
         let arrayWithValuesForTheColorOfTheMonth = [];
         countOfBirthsAllMonth.map(oneMonth => {
